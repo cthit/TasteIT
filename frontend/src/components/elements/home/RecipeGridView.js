@@ -12,6 +12,12 @@ class RecipeGridView extends Component {
         };
     }
 
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            recipes: nextProps.recipes
+        });
+    }
+
     handleMenu = choice => recipe => {
         this.props.handleMenu(choice, recipe);
     };

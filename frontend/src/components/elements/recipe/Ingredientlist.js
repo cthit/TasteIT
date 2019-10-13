@@ -10,7 +10,6 @@ class Ingredientlist extends Component {
     createIngredients = item => {
         // Replace with JSON
         let text = item[1] + " " + item[2] + " " + item[0];
-        console.log(text);
         return (
             <div className="ingredientListItem">
                 <DigitCheckbox label={text} primary />
@@ -21,7 +20,6 @@ class Ingredientlist extends Component {
     render() {
         // ingredients should be an array of strings
         var ingredientList = this.props.ingredients;
-        console.log(ingredientList);
         var listItems = ingredientList.map(this.createIngredients);
 
         return (

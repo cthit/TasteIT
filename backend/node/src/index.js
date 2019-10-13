@@ -1,6 +1,7 @@
 // Express and Port assignment
 const express = require("express");
 const cors = require("cors");
+const bodyParser = require("body-parser");
 const app = express();
 const port = 4000;
 
@@ -16,6 +17,7 @@ const client = new Client({
 client.connect(err => console.log("Connecting ERROR: " + err)); */
 
 app.use(cors());
+app.use(bodyParser.json());
 
 //Json reading
 const fs = require("fs");
@@ -36,14 +38,13 @@ app.get("/getAllNames", (req, res) => {
 app.get("/getRecipe/:name", (req, res) => {
   getRecipeRoute(req, res);
 });
-app.post("/insertRecipe/:data", (req, res) => {
+app.post("/insertRecipe", (req, res) => {
   insertRecipeRoute(req, res);
 });
 app.get("/getAllRecipes", (req, res) => {
   getAllRecipesRoute(req, res);
 });
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
-
 
 /// ALL ROUTE FUNCTIONS
 
@@ -142,7 +143,7 @@ async function getAllNames() {
 
 async function insertRecipe(req) {
   let response;
-  let data = req.query;
+  let data = req.body;
   console.log(data);
   fsp
     .writeFile(`./data/${data.name}.json`, JSON.stringify(data))
