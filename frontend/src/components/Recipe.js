@@ -6,8 +6,7 @@ import {
     DigitText,
     DigitDesign,
     DigitFAB,
-    DigitButton,
-    DigitMarkdown
+    DigitButton
 } from "@cthit/react-digit-components";
 import Ingredientlist from "./elements/recipe/Ingredientlist.js";
 import Instructions from "./elements/recipe/Instructions.js";
@@ -57,9 +56,7 @@ class Recipe extends Component {
                         />
                     </div>
                     <div className="recipeDescriptionArea">
-                        <DigitMarkdown
-                            markdownSource={currentRecipe.description}
-                        />
+                        <DigitText.Title text={currentRecipe.description} />
                     </div>
                     <div className="recipeTimeArea">
                         <DigitText.Text
