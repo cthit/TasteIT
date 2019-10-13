@@ -81,7 +81,6 @@ class Upload extends Component {
         this.setState({
             recipeIngredients: newRecipeIngredients
         });
-        console.log(this.state.recipeIngredients);
     };
     /**
      * Posts a JSON-Object containing recipe to
@@ -89,7 +88,6 @@ class Upload extends Component {
     handleUpload = () => {
         // Hardcoded creator until integration
         let creator = "schan";
-        /**
         let recipeData = {
             name: this.state.recipeName,
             time: this.state.recipeTime,
@@ -99,7 +97,8 @@ class Upload extends Component {
             instructions: this.state.recipeInstructions,
             creator: creator
         };
-        */
+
+        /**
         let recipeData =
             "yeet?name=" +
             this.state.recipeName +
@@ -115,17 +114,37 @@ class Upload extends Component {
             this.state.recipeInstructions +
             "&creator=" +
             creator;
-
-        console.log(this.state.recipeIngredients);
+            */
 
         if (this.checkValidation(recipeData)) {
             // Do an Axios-call to send this to the backend
-            console.log(recipeData);
+            /*
             axios
-                .post("http://localhost:4000/insertRecipe/" + recipeData)
+                .post(
+                    "http://localhost:4000/insertRecipe/yeet?name=" +
+                        this.state.recipeName +
+                        "&time=" +
+                        this.state.recipeTime +
+                        "&servings=" +
+                        this.state.recipeServings +
+                        "&ingredients=" +
+                        this.state.recipeIngredients +
+                        "&description=" +
+                        this.state.recipeDescription +
+                        "&instructions=" +
+                        this.state.recipeInstructions +
+                        "&creator=" +
+                        creator
+                )
+                .then(res => console.log(res))
+                .catch(err => console.log(err));
+                */
+            axios
+                .post("http://localhost:4000/insertRecipe", recipeData)
                 .then(res => console.log(res))
                 .catch(err => console.log(err));
         } else {
+            console.log(this.state);
             console.log("Did not pass validation");
         }
     };
@@ -230,7 +249,7 @@ class Upload extends Component {
                                 }}
                                 value={this.state.recipeDescription}
                                 upperLabel="Recipe description"
-                                lowerLabel="A description about the recipe"
+                                lowerLabel="Markdown supported"
                                 rows={4}
                             />
                         </div>
@@ -243,7 +262,7 @@ class Upload extends Component {
                                 }}
                                 value={this.state.recipeInstructions}
                                 upperLabel="Recipe instructions"
-                                lowerLabel="How to make this recipe"
+                                lowerLabel="Markdown supported"
                                 rows={4}
                             />
                         </div>

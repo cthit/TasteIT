@@ -22,28 +22,7 @@ class Home extends Component {
         axios
             .get("http://localhost:4000/getAllRecipes")
             .then(res => {
-                /*
-                let unParsedIngredients = res.data.ingredients.split(",");
-                let parsedIngredients = _.chunk(unParsedIngredients, 3);
-
-                let formattedRecipe = res.data;
-                formattedRecipe.ingredients = parsedIngredients;
-                */
-                var i;
-                for (i = 0; i < res.data.length; i++) {
-                    let recipeData = res.data[i];
-                    let unformattedIngredients = recipeData.ingredients;
-                    let formattedIngredients = unformattedIngredients.split(
-                        ","
-                    );
-                    let reformattedIngredients = _.chunk(
-                        formattedIngredients,
-                        3
-                    );
-                    recipeData.ingredients = reformattedIngredients;
-                    res.data[i] = recipeData;
-                }
-
+                console.log(res.data);
                 this.setState({
                     recipes: res.data
                 });
