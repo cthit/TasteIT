@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import { DigitText } from "@cthit/react-digit-components";
+import { DigitMarkdown } from "@cthit/react-digit-components";
 import "./Instructions.css";
 
 class Instructions extends Component {
     render() {
         return (
             <div className="recipeInstructionsArea">
-                <DigitText.Text text={this.props.instructions} />
+                <DigitMarkdown markdownSource={this.props.instructions} />
             </div>
         );
     }
