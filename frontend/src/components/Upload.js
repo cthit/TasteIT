@@ -98,47 +98,8 @@ class Upload extends Component {
             creator: creator
         };
 
-        /**
-        let recipeData =
-            "yeet?name=" +
-            this.state.recipeName +
-            "&time=" +
-            this.state.recipeTime +
-            "&servings=" +
-            this.state.recipeServings +
-            "&ingredients=" +
-            this.state.recipeIngredients +
-            "&description=" +
-            this.state.recipeDescription +
-            "&instructions=" +
-            this.state.recipeInstructions +
-            "&creator=" +
-            creator;
-            */
-
         if (this.checkValidation(recipeData)) {
             // Do an Axios-call to send this to the backend
-            /*
-            axios
-                .post(
-                    "http://localhost:4000/insertRecipe/yeet?name=" +
-                        this.state.recipeName +
-                        "&time=" +
-                        this.state.recipeTime +
-                        "&servings=" +
-                        this.state.recipeServings +
-                        "&ingredients=" +
-                        this.state.recipeIngredients +
-                        "&description=" +
-                        this.state.recipeDescription +
-                        "&instructions=" +
-                        this.state.recipeInstructions +
-                        "&creator=" +
-                        creator
-                )
-                .then(res => console.log(res))
-                .catch(err => console.log(err));
-                */
             axios
                 .post("http://localhost:4000/insertRecipe", recipeData)
                 .then(res => console.log(res))
