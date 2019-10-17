@@ -17,6 +17,9 @@ class Recipe extends Component {
     constructor(props) {
         super(props);
         let currentRecipe = JSON.parse(localStorage.getItem("recipeData"));
+        if (currentRecipe === null) {
+            this.handleGoBack();
+        }
         this.state = {
             recipe: currentRecipe
         };
