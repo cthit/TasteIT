@@ -4,6 +4,7 @@ import Edit from "@material-ui/icons/Edit";
 import axios from "axios";
 import {
     DigitText,
+    DigitMarkdown,
     DigitDesign,
     DigitFAB,
     DigitButton
@@ -16,6 +17,9 @@ class Recipe extends Component {
     constructor(props) {
         super(props);
         let currentRecipe = JSON.parse(localStorage.getItem("recipeData"));
+        if (currentRecipe === null) {
+            this.handleGoBack();
+        }
         this.state = {
             recipe: currentRecipe
         };
@@ -56,7 +60,9 @@ class Recipe extends Component {
                         />
                     </div>
                     <div className="recipeDescriptionArea">
-                        <DigitText.Title text={currentRecipe.description} />
+                        <DigitMarkdown
+                            markdownSource={currentRecipe.description}
+                        />
                     </div>
                     <div className="recipeTimeArea">
                         <DigitText.Text
