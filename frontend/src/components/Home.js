@@ -51,6 +51,11 @@ class Home extends Component {
     };
 
     handleDeleteRecipe = recipe => {
+        axios
+            .post("http://localhost:4000/deleteRecipe", recipe)
+            .then(res => console.log(res))
+            .catch(err => console.log(err));
+
         let currentRecipes = this.state.recipes;
         const index = currentRecipes.findIndex(r => r.id === recipe.id);
         currentRecipes.splice(index, 1);

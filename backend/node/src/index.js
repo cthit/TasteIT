@@ -48,6 +48,9 @@ app.post("/insertRecipe", (req, res) => {
 app.post("/editRecipe", (req, res) => {
   editRecipeRoute(req, res);
 });
+app.post("/deleteRecipe", (req, res) => {
+  deleteRecipeRoute(req, res);
+});
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
 /// ALL ROUTE FUNCTIONS
@@ -92,6 +95,10 @@ function insertRecipeRoute(req, res) {
 
 function editRecipeRoute(req, res) {
   editRecipe(req).then(data => res.send(data));
+}
+
+function deleteRecipeRoute(req, res) {
+  deleteRecipe(req).then(data => res.send(data));
 }
 
 function getAllRecipesRoute(req, res) {
@@ -171,6 +178,17 @@ async function editRecipe(req) {
     .then(() => console.log("Created"))
     .catch(err => console.log(err));
   return "edited";
+}
+
+async function deleteRecipe(req) {
+  let response;
+  let data = req.body;
+  let id = data.id;
+  fsp
+    .unlink(`./data/${id}.json`)
+    .then(() => console.log("Deleted"))
+    .catch(err => console.log(err));
+  return "deleted";
 }
 
 async function getAllRecipes(req) {
