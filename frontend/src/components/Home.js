@@ -44,7 +44,7 @@ class Home extends Component {
         if (choice === "edit_recipe") {
             localStorage.setItem("recipeData", recipe);
             // Route to edit page
-            window.open("/edit", "_blank");
+            window.open("/edit", "_self");
         } else {
             this.handleDeleteRecipe(recipe);
         }

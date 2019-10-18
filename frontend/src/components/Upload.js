@@ -33,11 +33,13 @@ class Upload extends Component {
             recipeIngredients: this.props.recipeIngredients,
             recipeDescription: this.props.recipeDescription,
             recipeInstructions: this.props.recipeInstructions,
+            recipeId: this.props.recipeId,
             currentIngredient: this.props.currentIngredient,
             currentAmount: this.props.currentAmount,
             currentMeassurement: this.props.currentMeassurement,
             editMode: this.props.editMode,
-            noName: false
+            noName: false,
+            oldName: this.props.recipeName
         };
     }
 
@@ -82,10 +84,8 @@ class Upload extends Component {
             recipeIngredients: newRecipeIngredients
         });
     };
-    /**
-     * Posts a JSON-Object containing recipe to
-     */
-    handleUpload = () => {
+
+    handleEditMode = () => {
         // Hardcoded creator until integration
         let creator = "schan";
         let recipeData = {
@@ -95,18 +95,49 @@ class Upload extends Component {
             ingredients: this.state.recipeIngredients,
             description: this.state.recipeDescription,
             instructions: this.state.recipeInstructions,
-            creator: creator
+            creator: creator,
+            id: this.state.recipeId
         };
 
         if (this.checkValidation(recipeData)) {
-            // Do an Axios-call to send this to the backend
             axios
-                .post("http://localhost:4000/insertRecipe", recipeData)
+                .post("http://localhost:4000/editRecipe", recipeData)
                 .then(res => console.log(res))
                 .catch(err => console.log(err));
         } else {
             console.log(this.state);
             console.log("Did not pass validation");
+        }
+
+        window.open("/", "_self");
+    };
+
+    handleUpload = () => {
+        if (this.state.editMode === true) {
+            this.handleEditMode();
+        } else {
+            // Hardcoded creator until integration
+            let creator = "schan";
+            let recipeData = {
+                name: this.state.recipeName,
+                time: this.state.recipeTime,
+                servings: this.state.recipeServings,
+                ingredients: this.state.recipeIngredients,
+                description: this.state.recipeDescription,
+                instructions: this.state.recipeInstructions,
+                creator: creator
+            };
+
+            if (this.checkValidation(recipeData)) {
+                // Do an Axios-call to send this to the backend
+                axios
+                    .post("http://localhost:4000/insertRecipe", recipeData)
+                    .then(res => console.log(res))
+                    .catch(err => console.log(err));
+            } else {
+                console.log(this.state);
+                console.log("Did not pass validation");
+            }
         }
     };
     // TODO: Create validator or use yup
@@ -249,6 +280,7 @@ Upload.propTypes = {
     recipeIngredients: PropTypes.array,
     recipeDescription: PropTypes.string,
     recipeInstructions: PropTypes.string,
+    recipeId: PropTypes.string,
     currentIngredient: PropTypes.string,
     currentAmount: PropTypes.string,
     currentMeassurement: PropTypes.string,
