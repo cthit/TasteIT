@@ -6,6 +6,9 @@ class Edit extends Component {
     constructor(props) {
         super(props);
         let currentRecipe = JSON.parse(localStorage.getItem("recipeData"));
+        if (currentRecipe === null) {
+            window.open("/", "_self");
+        }
         this.state = {
             recipe: currentRecipe
         };
