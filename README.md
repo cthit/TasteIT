@@ -1,6 +1,15 @@
 # TasteIT
-A recipe bank with a scaling function.
+A recipe bank for the IT-section in Chalmers.
 
-This repo mostly contains `good first issues` which makes it a good starting point for any one interested in helping out digIT develop their IT services.
+## How to start the webpage
+1. CLone or download the project
+2. Start the backend
+3. Start the frontend, this will open the webpage on [localhost:3000](http://localhost:3000/)
 
-See project page: https://github.com/cthit/TasteIT/projects/1
+### How to start backend
+1. Install dependencies by running `npm install` in the **backend** directory, this requires npm to be installed
+2. In the same directory, run `docker-compose up` to start the backend on port **4000**, this requires docker-compose to be installed
+
+### How to start frontend
+1. Install dependencies by running `yarn` or `yarn install` in the **frontend** directory, this requires yarn to be installed
+2. In the same directory, run `yarn start` to start the server on port **3000**, this requires that the backend is already active
