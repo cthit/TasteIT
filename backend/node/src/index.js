@@ -2,6 +2,7 @@
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const uuidv4 = require("uuid/v4");
 const app = express();
 const port = 4000;
 
@@ -38,11 +39,17 @@ app.get("/getAllNames", (req, res) => {
 app.get("/getRecipe/:name", (req, res) => {
   getRecipeRoute(req, res);
 });
+app.get("/getAllRecipes", (req, res) => {
+  getAllRecipesRoute(req, res);
+});
 app.post("/insertRecipe", (req, res) => {
   insertRecipeRoute(req, res);
 });
-app.get("/getAllRecipes", (req, res) => {
-  getAllRecipesRoute(req, res);
+app.post("/editRecipe", (req, res) => {
+  editRecipeRoute(req, res);
+});
+app.post("/deleteRecipe", (req, res) => {
+  deleteRecipeRoute(req, res);
 });
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
@@ -84,6 +91,14 @@ function getRecipeRoute(req, res) {
 
 function insertRecipeRoute(req, res) {
   insertRecipe(req).then(data => res.send(data));
+}
+
+function editRecipeRoute(req, res) {
+  editRecipe(req).then(data => res.send(data));
+}
+
+function deleteRecipeRoute(req, res) {
+  deleteRecipe(req).then(data => res.send(data));
 }
 
 function getAllRecipesRoute(req, res) {
@@ -144,12 +159,36 @@ async function getAllNames() {
 async function insertRecipe(req) {
   let response;
   let data = req.body;
+  data.id = uuidv4();
   console.log(data);
   fsp
-    .writeFile(`./data/${data.name}.json`, JSON.stringify(data))
+    .writeFile(`./data/${data.id}.json`, JSON.stringify(data))
     .then(() => console.log("Created"))
     .catch(err => console.log(err));
   return "writen";
+}
+
+async function editRecipe(req) {
+  let response;
+  let data = req.body;
+  let id = data.id;
+  console.log(data);
+  fsp
+    .writeFile(`./data/${id}.json`, JSON.stringify(data))
+    .then(() => console.log("Created"))
+    .catch(err => console.log(err));
+  return "edited";
+}
+
+async function deleteRecipe(req) {
+  let response;
+  let data = req.body;
+  let id = data.id;
+  fsp
+    .unlink(`./data/${id}.json`)
+    .then(() => console.log("Deleted"))
+    .catch(err => console.log(err));
+  return "deleted";
 }
 
 async function getAllRecipes(req) {
