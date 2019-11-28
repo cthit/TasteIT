@@ -3,11 +3,11 @@ import ReactDOM from "react-dom";
 import * as yup from "yup";
 import {
   DigitText,
+  DigitTextField,
+  DigitTextArea,
   DigitForm,
   DigitFormField,
-  DigitFormFieldArray,
   DigitDesign,
-  DigitTextField,
   DigitButton
 } from "@cthit/react-digit-components";
 import "./styles/Upload.css";
@@ -50,40 +50,76 @@ class UploadYup extends Component {
       <div className="uploadBody">
         <div className="uploadTitle">
           <DigitText.Heading3 text={"Upload"}></DigitText.Heading3>
-          <DigitForm
-            onSubmit={values => {
-              console.log(values);
-            }}
-            initialValues={{
-              recipeName: this.state.recipeName,
-              recipeTime: "",
-              recipeServings: "",
-              recipeIngredients: "",
-              recipeDescription: "",
-              recipeInstructions: "",
-              currentIngredient: "",
-              currentAmount: "",
-              currentMeassurement: ""
-            }}
-            validationSchema={yup.object().shape({
-              recipeName: yup.string().required("This is a required field")
-            })}
-            render={({ errors }) => (
-              <DigitDesign.Card absWidth="400px">
-                <DigitDesign.CardBody>
-                  <DigitFormField
-                    name="recipeName"
-                    component={DigitTextField}
-                    componentProps={{
-                      upperLabel: "Name of the recipe",
-                      lowerLabel: "Required"
-                    }}
-                  />
-                  <DigitButton text={this.modeText()} submit primary outlined />
-                </DigitDesign.CardBody>
-              </DigitDesign.Card>
-            )}
-          />
+          <div className="uploadForm">
+            <DigitForm
+              onSubmit={(values, actions) => {
+                console.log(values);
+              }}
+              initialValues={{
+                recipeName: "",
+                recipeTime: "",
+                recipeServings: "",
+                recipeDescription: "",
+                recipeInstructions: ""
+              }}
+              validationSchema={yup.object().shape({
+                recipeName: yup.string().required("This can't be empty"),
+                recipeTime: yup.string().required("This can't be empty"),
+                recipeServings: yup.string().required("This can't be empty"),
+                recipeDescription: yup.string().required("This can't be empty"),
+                recipeInstructions: yup.string().required("This can't be empty")
+              })}
+              render={({ errors }) => (
+                <DigitDesign.Card abswidth="460px">
+                  <DigitDesign.CardBody>
+                    <DigitFormField
+                      name="recipeName"
+                      component={DigitTextField}
+                      componentProps={{
+                        upperLabel: "Name of the recipe",
+                        filled: true
+                      }}
+                    />
+                    <DigitFormField
+                      name="recipeTime"
+                      component={DigitTextField}
+                      componentProps={{
+                        upperLabel: "Cooking time",
+                        filled: true
+                      }}
+                    />
+                    <DigitFormField
+                      name="recipeServings"
+                      component={DigitTextField}
+                      componentProps={{
+                        upperLabel: "Servings yielded",
+                        filled: true
+                      }}
+                    />
+                    <DigitFormField
+                      name="recipeDescription"
+                      component={DigitTextArea}
+                      componentProps={{
+                        upperLabel: "What is this recipe?",
+                        filled: true
+                      }}
+                    />
+                    <DigitFormField
+                      name="recipeInstructions"
+                      component={DigitTextArea}
+                      componentProps={{
+                        upperLabel: "How do you cook this?",
+                        filled: true
+                      }}
+                    />
+                    <DigitDesign.CardButtons>
+                      <DigitButton primary raised submit text="Upload Recipe" />
+                    </DigitDesign.CardButtons>
+                  </DigitDesign.CardBody>
+                </DigitDesign.Card>
+              )}
+            />
+          </div>
         </div>
       </div>
     );
