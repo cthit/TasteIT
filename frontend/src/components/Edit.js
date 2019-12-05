@@ -27,6 +27,7 @@ class Edit extends Component {
                     recipeIngredients={currentRecipe.ingredients}
                     recipeDescription={currentRecipe.description}
                     recipeInstructions={currentRecipe.instructions}
+                    recipeId={currentRecipe.id}
                     editMode={true}
                 />
             </div>

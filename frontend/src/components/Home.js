@@ -44,13 +44,18 @@ class Home extends Component {
         if (choice === "edit_recipe") {
             localStorage.setItem("recipeData", recipe);
             // Route to edit page
-            window.open("/edit", "_blank");
+            window.open("/edit", "_self");
         } else {
             this.handleDeleteRecipe(recipe);
         }
     };
 
     handleDeleteRecipe = recipe => {
+        axios
+            .post("http://localhost:4000/deleteRecipe", recipe)
+            .then(res => console.log(res))
+            .catch(err => console.log(err));
+
         let currentRecipes = this.state.recipes;
         const index = currentRecipes.findIndex(r => r.id === recipe.id);
         currentRecipes.splice(index, 1);
