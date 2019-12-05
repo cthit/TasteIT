@@ -19,11 +19,12 @@ class UploadYup extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      recipeIngredients: props.recipeIngredients,
-      currentIngredient: props.currentIngredient,
-      currentAmount: props.currentAmount,
-      currentMeassurement: props.currentMeassurement
+      recipeIngredients: this.props.recipeIngredients,
+      currentIngredient: this.props.currentIngredient,
+      currentAmount: this.props.currentAmount,
+      currentMeassurement: this.props.currentMeassurement
     };
+    console.log(this.state);
   }
 
   changeIngredient = ingredient => {
@@ -44,13 +45,43 @@ class UploadYup extends Component {
     });
   };
 
+  handleAdd = () => {
+    let newRecipeIngredients = this.state.recipeIngredients;
+    newRecipeIngredients.push([
+      this.state.currentIngredient,
+      this.state.currentAmount,
+      this.state.currentMeassurement
+    ]);
+
+    this.setState({
+      recipeIngredents: newRecipeIngredients
+    });
+  };
+
+  handleDelete = ingredientWithAmount => {
+    let newRecipeIngredients = this.state.recipeIngredients;
+    let index = newRecipeIngredients.indexOf(ingredientWithAmount);
+    if (index !== -1) {
+      newRecipeIngredients.splice(index, 1);
+      this.setState({
+        recipeIngredents: newRecipeIngredients
+      });
+    }
+  };
+
   handleUpload = data => {
+    let ingredients = this.state.ingredients;
+    if (typeof ingredients == "undefined") {
+      console.log("Ingredients can not be empty");
+      return;
+    }
+
     let creator = "schan";
     let recipeData = {
       name: data.recipeName,
       time: data.recipeTime,
       servings: data.recipeServings,
-      ingredients: this.state.recipeIngredients,
+      ingredients: ingredients,
       description: data.recipeDescription,
       instructions: data.instructions,
       creator: creator
