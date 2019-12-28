@@ -19,10 +19,10 @@ class UploadYup extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      recipeIngredients: this.props.recipeIngredients,
-      currentIngredient: this.props.currentIngredient,
-      currentAmount: this.props.currentAmount,
-      currentMeassurement: this.props.currentMeassurement
+      recipeIngredients: [],
+      currentIngredient: "",
+      currentAmount: "",
+      currentMeassurement: "g"
     };
     console.log(this.state);
   }
@@ -54,8 +54,9 @@ class UploadYup extends Component {
     ]);
 
     this.setState({
-      recipeIngredents: newRecipeIngredients
+      recipeIngredients: newRecipeIngredients
     });
+    console.log(this.state);
   };
 
   handleDelete = ingredientWithAmount => {
@@ -67,10 +68,11 @@ class UploadYup extends Component {
         recipeIngredents: newRecipeIngredients
       });
     }
+    console.log(this.state);
   };
 
   handleUpload = data => {
-    let ingredients = this.state.ingredients;
+    let ingredients = this.state.recipeIngredients;
     if (typeof ingredients == "undefined") {
       console.log("Ingredients can not be empty");
       return;
@@ -83,7 +85,7 @@ class UploadYup extends Component {
       servings: data.recipeServings,
       ingredients: ingredients,
       description: data.recipeDescription,
-      instructions: data.instructions,
+      instructions: data.recipeInstructions,
       creator: creator
     };
 
@@ -183,19 +185,5 @@ class UploadYup extends Component {
     );
   }
 }
-
-UploadYup.propTypes = {
-  recipeIngredients: PropTypes.array,
-  currentIngredient: PropTypes.string,
-  currentAmount: PropTypes.string,
-  currentMeassurement: PropTypes.string
-};
-
-UploadYup.defaultProps = {
-  recipeIngredients: [],
-  currentIngredient: "",
-  currentAmount: "",
-  currentMeassurement: "g"
-};
 
 export default UploadYup;
