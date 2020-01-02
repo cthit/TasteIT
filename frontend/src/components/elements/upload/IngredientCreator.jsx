@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./styles/IngredientCreator.css";
-import IngredientItems from "./IngredientItems.js";
+import IngredientItems from "./IngredientItems.jsx";
 import { TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import {

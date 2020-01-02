@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { DigitToastActions } from "@cthit/react-digit-components";
-import UploadYup from "./UploadYup";
+import UploadYup from "./UploadYup.jsx";
 
 const mapStateToProps = (state, ownProps) => ({});
 
