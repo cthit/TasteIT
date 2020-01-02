@@ -3,8 +3,7 @@ import { BrowserRouter, Switch } from "react-router-dom";
 import { Route } from "react-router";
 
 import Home from "./Home";
-import Upload from "./Upload";
-import UploadYup from "./UploadYup";
+import UploadYup from "./elements/upload/UploadYup.container";
 import Recipe from "./Recipe";
 import Edit from "./Edit";
 import NotFound from "./NotFound";

@@ -12,7 +12,7 @@ import {
   DigitDesign,
   DigitButton
 } from "@cthit/react-digit-components";
-import IngredientCreator from "./elements/upload/IngredientCreator.js";
+import IngredientCreator from "./IngredientCreator";
 import "./styles/Upload.css";
 
 class UploadYup extends Component {
@@ -91,14 +91,17 @@ class UploadYup extends Component {
 
     axios
       .post("http://localhost:4000/insertRecipe", recipeData)
-      .then()
+      .then(() => {
+        this.props.toastOpen({
+          text: "Uploaded!"
+        });
+      })
       .catch(err => {
         console.log(err);
       });
   };
 
   render() {
-    let yup = require("yup");
     return (
       <div className="uploadBody">
         <div className="uploadTitle">

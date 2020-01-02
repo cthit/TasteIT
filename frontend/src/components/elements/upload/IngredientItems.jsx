@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { DigitText, DigitTooltip } from "@cthit/react-digit-components";
-import "./IngredientItems.css";
+import "./styles/IngredientItems.css";
 
 class IngredientItems extends Component {
   handleDelete = ingredient => {
