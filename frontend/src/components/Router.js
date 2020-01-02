@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { BrowserRouter, Switch } from "react-router-dom";
 import { Route } from "react-router";
 
-import Home from "./Home";
+import Home from "./Home.jsx";
 import UploadYup from "./elements/upload/UploadYup.container";
 import Recipe from "./Recipe";
 import Edit from "./Edit";
