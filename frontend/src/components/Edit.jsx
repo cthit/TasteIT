@@ -70,7 +70,6 @@ class Edit extends Component {
         recipeIngredents: newRecipeIngredients
       });
     }
-    console.log(this.state);
   };
 
   handleEdit = data => {

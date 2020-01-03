@@ -22,7 +22,6 @@ class Home extends Component {
     axios
       .get("http://localhost:4000/getAllRecipes")
       .then(res => {
-        console.log(res.data);
         this.setState({
           recipes: res.data
         });

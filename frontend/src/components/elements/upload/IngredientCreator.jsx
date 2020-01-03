@@ -16,8 +16,6 @@ class IngredientCreator extends Component {
       currentAmount: 1,
       currentIngredient: ""
     };
-
-    console.log(props);
   }
 
   changeAmount = amount => {

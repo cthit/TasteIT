@@ -24,7 +24,6 @@ class UploadYup extends Component {
       currentAmount: "",
       currentMeassurement: "g"
     };
-    console.log(this.state);
   }
 
   changeIngredient = ingredient => {
@@ -56,7 +55,6 @@ class UploadYup extends Component {
     this.setState({
       recipeIngredients: newRecipeIngredients
     });
-    console.log(this.state);
   };
 
   handleDelete = ingredientWithAmount => {
@@ -68,7 +66,6 @@ class UploadYup extends Component {
         recipeIngredents: newRecipeIngredients
       });
     }
-    console.log(this.state);
   };
 
   handleUpload = data => {

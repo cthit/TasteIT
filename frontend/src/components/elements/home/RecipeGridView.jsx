@@ -6,7 +6,6 @@ import "./styles/RecipeGridView.css";
 class RecipeGridView extends Component {
   constructor(props) {
     super(props);
-    console.log(this.props.recipes);
     this.state = {
       recipes: this.props.recipes
     };
