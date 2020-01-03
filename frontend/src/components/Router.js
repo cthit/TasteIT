@@ -3,7 +3,7 @@ import { BrowserRouter, Switch } from "react-router-dom";
 import { Route } from "react-router";
 
 import Home from "./Home.jsx";
-import UploadYup from "./elements/upload/UploadYup.container";
+import Upload from "./elements/upload/Upload.container";
 import Recipe from "./Recipe.jsx";
 import Edit from "./Edit.container";
 import NotFound from "./NotFound";
@@ -13,7 +13,7 @@ class Router extends Component {
     return (
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route path="/upload" component={UploadYup} />
+        <Route path="/upload" component={Upload} />
         <Route path="/recipe" component={Recipe} />
         <Route path="/edit" component={Edit} />
         <Route path="/" component={NotFound} />

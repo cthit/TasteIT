@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { DigitToastActions } from "@cthit/react-digit-components";
-import UploadYup from "./UploadYup.jsx";
+import Upload from "./Upload.jsx";
 
 const mapStateToProps = (state, ownProps) => ({});
 
@@ -11,4 +11,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(UploadYup);
+)(Upload);
