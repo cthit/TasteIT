@@ -4,8 +4,8 @@ import { Route } from "react-router";
 
 import Home from "./Home.jsx";
 import UploadYup from "./elements/upload/UploadYup.container";
-import Recipe from "./Recipe";
-import Edit from "./Edit";
+import Recipe from "./Recipe.jsx";
+import Edit from "./Edit.container";
 import NotFound from "./NotFound";
 
 class Router extends Component {
