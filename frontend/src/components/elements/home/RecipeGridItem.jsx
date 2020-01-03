@@ -63,7 +63,7 @@ class RecipeGridItem extends Component {
         />
       );
     } else {
-      return <div />;
+      return null;
     }
   };
 
