@@ -59,7 +59,6 @@ class Edit extends Component {
     this.setState({
       recipeIngredients: newRecipeIngredients
     });
-    console.log(this.state);
   };
 
   handleDelete = ingredientWithAmount => {
