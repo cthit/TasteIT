@@ -13,17 +13,33 @@ import Ingredientlist from "./elements/recipe/Ingredientlist.jsx";
 import Instructions from "./elements/recipe/Instructions.jsx";
 import "./elements/recipe/styles/Recipe.css";
 class Recipe extends Component {
-  // TODO: Seperate each DigitText into separate elements for ease of styling'
   constructor(props) {
     super(props);
-    let currentRecipe = JSON.parse(localStorage.getItem("recipeData"));
-    if (currentRecipe === null) {
-      this.handleGoBack();
-    }
     this.state = {
-      recipe: currentRecipe
+      recipe: {
+        name: "",
+        time: "",
+        servings: "",
+        ingredients: [],
+        description: "",
+        instructions: "",
+        creator: "",
+        id: ""
+      }
     };
-    localStorage.removeItem("recipeData");
+  }
+
+  componentDidMount() {
+    axios
+      .get("http://localhost:4000/getRecipe/" + this.props.match.params.id)
+      .then(res => {
+        this.setState({
+          recipe: res.data
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   formatTime = time => {
@@ -35,8 +51,7 @@ class Recipe extends Component {
   };
 
   openEdit = () => {
-    localStorage.setItem("recipeData", JSON.stringify(this.state.recipe));
-    window.open("/edit", "_self");
+    this.props.history.push("/edit/" + this.state.recipe.id);
   };
 
   render() {

@@ -14,8 +14,8 @@ class Router extends Component {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/upload" component={Upload} />
-        <Route path="/recipe" component={Recipe} />
-        <Route path="/edit" component={Edit} />
+        <Route path="/recipe/:id" component={Recipe} />
+        <Route path="/edit/:id" component={Edit} />
         <Route path="/" component={NotFound} />
       </Switch>
     );

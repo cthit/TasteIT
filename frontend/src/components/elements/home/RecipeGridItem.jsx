@@ -19,6 +19,7 @@ class RecipeGridItem extends Component {
       recipeIngredients: recipe.ingredients,
       recipeDescription: recipe.description,
       recipeInstructions: recipe.instructions,
+      recipeId: recipe.id,
       recipeCreator: recipe.creator
     };
   }
@@ -35,10 +36,9 @@ class RecipeGridItem extends Component {
 
   handleMenu = choice => {
     if (choice === "edit_recipe") {
-      localStorage.setItem("recipeData", JSON.stringify(this.props.recipe));
-
       // Route to edit page
-      window.open("/edit", "_blank");
+      //window.open("/edit", "_blank");
+      this.props.history.push("/edit/" + this.state.recipeId);
     } else if (choice === "delete_recipe") {
       this.handleDeleteRecipe();
     }

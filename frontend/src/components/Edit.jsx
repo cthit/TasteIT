@@ -16,18 +16,29 @@ import "./styles/Edit.css";
 class Edit extends Component {
   constructor(props) {
     super(props);
-    let currentRecipe = JSON.parse(localStorage.getItem("recipeData"));
-    if (currentRecipe === null) {
-      window.open("/", "_self");
-    }
     this.state = {
-      recipe: currentRecipe,
-      recipeIngredients: currentRecipe.ingredients,
+      recipe: "",
+      recipeIngredients: [],
       currentIngredient: "",
       currentAmount: "",
       currentMeassurement: ""
     };
     localStorage.removeItem("recipeData");
+  }
+
+  componentDidMount() {
+    axios
+      .get("http://localhost:4000/getRecipe/" + this.props.match.params.id)
+      .then(res => {
+        this.setState({
+          recipe: res.data,
+          recipeIngredients: res.data.ingredients
+        });
+        this.render();
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   changeIngredient = ingredient => {

@@ -4,7 +4,6 @@ import NewWindow from "react-new-window";
 import ReactDOM from "react-dom";
 import RecipeGridView from "./elements/home/RecipeGridView.jsx";
 import Recipe from "./Recipe.jsx";
-import EditRecipe from "./Edit.jsx";
 import axios from "axios";
 import _ from "lodash";
 import "./elements/home/styles/Home.css";
@@ -39,16 +38,6 @@ class Home extends Component {
     return true;
   };
 
-  handleMenu = choice => recipe => {
-    if (choice === "edit_recipe") {
-      localStorage.setItem("recipeData", recipe);
-      // Route to edit page
-      window.open("/edit", "_self");
-    } else {
-      this.handleDeleteRecipe(recipe);
-    }
-  };
-
   handleDeleteRecipe = recipe => {
     axios
       .post("http://localhost:4000/deleteRecipe", recipe)
@@ -76,12 +65,10 @@ class Home extends Component {
   };
 
   handleOpenRecipe = recipe => {
-    localStorage.setItem("recipeData", JSON.stringify(recipe));
-    window.open("/recipe", "_self");
+    this.props.history.push("/recipe/" + recipe.id);
   };
 
   render() {
-    console.log(this.state.recipes);
     return (
       <RecipeGridView
         recipes={this.state.recipes}
@@ -89,6 +76,7 @@ class Home extends Component {
         handleMenu={this.handleMenu}
         handleDeleteRecipe={this.handleDeleteRecipe}
         handleOpenRecipe={this.handleOpenRecipe}
+        history={this.props.history}
       />
     );
   }
