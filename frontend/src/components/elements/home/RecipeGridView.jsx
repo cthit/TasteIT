@@ -32,6 +32,7 @@ class RecipeGridView extends Component {
   renderGridElements = item => {
     return (
       <RecipeGridItem
+        history={this.props.history}
         key={item.id}
         recipe={item}
         isUserCreator={this.props.isUserCreator(item.creator)}
