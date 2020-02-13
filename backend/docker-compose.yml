@@ -1,4 +1,4 @@
-version: '2'
+version: "2"
 
 services:
   node:
@@ -10,20 +10,20 @@ services:
       - ./node:/node
       - /node/node_modules
       - ./data:/node/data
-##    depends_on:
+    environment:
+      - CLIENT_ID=thisisaclientid
+      - SECRET=hellotherethisisasecret
+    ##    depends_on:
     ##  - postgres
     command: bash -c "yarn && yarn dev"
-
- ## postgres:
-   ## image: postgres
-   ## volumes: 
-    ##  - ./postgres:/var/lib/postgresql/
+  ## postgres:
+  ## image: postgres
+  ## volumes:
+  ##  - ./postgres:/var/lib/postgresql/
   ##  ports:
-     ## - 5000:5432
+  ## - 5000:5432
   ##  environment:
-    ##  POSTGRES_USER: tasteit
-     ## POSTGRES_PASSWORD: EkHMphfkH7raPWFvZnPxQdSh9ZpLHeeUK8r9mG5QAAct77HenN
-     ## POSTGRES_DB: tasteit
-      
-    ##name: postgresdb
-    
+  ##  POSTGRES_USER: tasteit
+  ## POSTGRES_PASSWORD: EkHMphfkH7raPWFvZnPxQdSh9ZpLHeeUK8r9mG5QAAct77HenN
+  ## POSTGRES_DB: tasteit
+  ##name: postgresdb
