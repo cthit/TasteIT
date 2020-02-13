@@ -28,16 +28,7 @@ class Ingredientlist extends Component {
         {listItems}
       </ul>
       */
-      <div className="ingredientListArea">
-        <DigitLayout.UniformGrid
-          minItemWidth="240px"
-          minItemHeight="78px"
-          rowGap="20px"
-          columnGap="20px"
-        >
-          {listItems}
-        </DigitLayout.UniformGrid>
-      </div>
+      <div className="ingredientListArea">{listItems}</div>
     );
   }
 }
