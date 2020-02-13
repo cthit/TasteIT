@@ -6,6 +6,7 @@ import Home from "./Home.jsx";
 import Upload from "./elements/upload/Upload.container";
 import Recipe from "./Recipe.jsx";
 import Edit from "./Edit.container";
+import Callback from "./Callback.jsx";
 import NotFound from "./NotFound";
 
 class Router extends Component {
@@ -16,6 +17,7 @@ class Router extends Component {
         <Route path="/upload" component={Upload} />
         <Route path="/recipe/:id" component={Recipe} />
         <Route path="/edit/:id" component={Edit} />
+        <Route path="/callback" component={Callback} />
         <Route path="/" component={NotFound} />
       </Switch>
     );

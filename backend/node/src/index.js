@@ -42,6 +42,9 @@ app.get("/getRecipe/:id", (req, res) => {
 app.get("/getAllRecipes", (req, res) => {
   getAllRecipesRoute(req, res);
 });
+app.get("/getClientId", (req, res) => {
+  getClientIdRoute(res);
+});
 app.post("/insertRecipe", (req, res) => {
   insertRecipeRoute(req, res);
 });
@@ -85,6 +88,15 @@ function getRecipeRoute(req, res) {
         "This error probably occured because of a faulty URL, URL should consist of the name.json <br>" +
           err
       );
+      console.log(err);
+    });
+}
+
+function getClientIdRoute(res) {
+  getClientId()
+    .then(data => res.send(data))
+    .catch(err => {
+      res.send(err);
       console.log(err);
     });
 }
@@ -153,6 +165,12 @@ async function getAllNames() {
       });
     })
     .catch(err => console.log(err));
+  return response;
+}
+
+async function getClientId() {
+  let response = process.env.CLIENT_ID;
+  console.log(response);
   return response;
 }
 
