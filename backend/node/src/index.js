@@ -1,4 +1,4 @@
-// Express and Port assignment
+// Express, Const and Port assignment
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
@@ -53,6 +53,9 @@ app.post("/editRecipe", (req, res) => {
 });
 app.post("/deleteRecipe", (req, res) => {
   deleteRecipeRoute(req, res);
+});
+app.post("/verifyToken", (req, res) => {
+  verifyTokenRoute(req, res);
 });
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
@@ -115,6 +118,16 @@ function deleteRecipeRoute(req, res) {
 
 function getAllRecipesRoute(req, res) {
   getAllRecipes(req)
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+}
+
+function verifyTokenRoute(req, res) {
+  verifyToken(req)
     .then(data => {
       res.send(data);
     })
@@ -207,6 +220,22 @@ async function deleteRecipe(req) {
     .then(() => console.log("Deleted"))
     .catch(err => console.log(err));
   return "deleted";
+}
+
+async function verifyToken(req) {
+  // TODO: find out why njwt does not exist
+  var nJwt = require("njwt");
+  let response;
+  let data = req.body;
+  let token = data.token;
+  let signingKey = process.env.SECRET;
+  try {
+    let verifiedToken = nJwt.verify(token, signingKey);
+  } catch (err) {
+    console.log(err);
+    return err;
+  }
+  return verifiedToken;
 }
 
 async function getAllRecipes(req) {
