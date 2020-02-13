@@ -2,7 +2,7 @@
 A recipe bank for the IT-section in Chalmers.
 
 ## How to start the webpage
-1. CLone or download the project
+1. Clone or download the project
 2. Start the backend
 3. Start the frontend, this will open the webpage on [localhost:3000](http://localhost:3000/)
 
