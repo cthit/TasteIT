@@ -138,7 +138,8 @@ class UploadYup extends Component {
                     name="recipeTime"
                     component={DigitTextField}
                     componentProps={{
-                      upperLabel: "Cooking time"
+                      upperLabel: "Cooking time",
+                      lowerLabel: "In minutes"
                     }}
                   />
                   <DigitFormField

@@ -49,8 +49,8 @@ class IngredientCreator extends Component {
         </div>
         <div className="ingredientCreatorElement">
           <TextField
-            label="Amount of ingredients"
-            helperText="Type in the amount of ingredients"
+            label="Amount of units"
+            helperText="Type in the amount of units"
             type="number"
             value={this.props.amountValue}
             onChange={e => {
@@ -64,7 +64,7 @@ class IngredientCreator extends Component {
         </div>
         <div className="ingredientCreatorElement">
           <DigitSelect
-            lowerLabel="Unit of meassurement"
+            lowerLabel="Unit of meassurement for ingredient"
             value={this.props.meassurementValue}
             onChange={e => {
               this.changeMeassurement(e.target.value);

@@ -23,7 +23,6 @@ class Edit extends Component {
       currentAmount: "",
       currentMeassurement: ""
     };
-    localStorage.removeItem("recipeData");
   }
 
   componentDidMount() {
@@ -34,7 +33,6 @@ class Edit extends Component {
           recipe: res.data,
           recipeIngredients: res.data.ingredients
         });
-        this.render();
       })
       .catch(err => {
         console.log(err);
