@@ -157,7 +157,8 @@ class Edit extends Component {
                     name="recipeTime"
                     component={DigitTextField}
                     componentProps={{
-                      upperLabel: "Cooking time in minutes"
+                      upperLabel: "Cooking time",
+                      lowerLabel: "In minutes"
                     }}
                   />
                   <DigitFormField
