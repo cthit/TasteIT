@@ -231,11 +231,11 @@ async function verifyToken(req) {
   let signingKey = process.env.SECRET;
   try {
     let verifiedToken = nJwt.verify(token, signingKey);
+    return verifiedToken;
   } catch (err) {
     console.log(err);
     return err;
   }
-  return verifiedToken;
 }
 
 async function getAllRecipes(req) {
