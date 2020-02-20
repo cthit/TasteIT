@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState, useEffect } from "react";
 import axios from "axios";
 import * as yup from "yup";
 import {
@@ -6,204 +6,77 @@ import {
   DigitTextField,
   DigitTextArea,
   DigitForm,
-  DigitFormField,
   DigitDesign,
-  DigitButton
+  DigitButton,
+  useDigitToast
 } from "@cthit/react-digit-components";
 import IngredientCreator from "./elements/upload/IngredientCreator";
 import "./styles/Edit.css";
+import RecipeForm from "../common/elements/recipe-form";
 
-class Edit extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      recipe: "",
-      recipeIngredients: [],
-      currentIngredient: "",
-      currentAmount: "",
-      currentMeassurement: ""
-    };
-  }
+const handleEdit = (id, data, queueToast) => {
+  let creator = "schan";
+  let recipeData = {
+    ...data,
+    creator: creator,
+    id: id
+  };
 
-  componentDidMount() {
+  axios
+    .post("http://localhost:4000/editRecipe", recipeData)
+    .then(() => {
+      queueToast({
+        text: "Edited!"
+      });
+    })
+    .catch(err => {
+      console.log(err);
+      queueToast({
+        text: "Something went wrong"
+      });
+    });
+};
+
+const Edit = ({ match }) => {
+  const [queueToast] = useDigitToast();
+  const [recipeData, setRecipeData] = useState(null);
+
+  useEffect(() => {
     axios
-      .get("http://localhost:4000/getRecipe/" + this.props.match.params.id)
-      .then(res => {
-        this.setState({
-          recipe: res.data,
-          recipeIngredients: res.data.ingredients
-        });
+      .get("http://localhost:4000/getRecipe/" + match.params.id)
+      .then(response => {
+        setRecipeData(response.data);
       })
       .catch(err => {
+        queueToast({
+          text: "Something went wrong when getting the recipe"
+        });
         console.log(err);
       });
+  }, []);
+
+  if (recipeData == null) {
+    return null;
   }
 
-  changeIngredient = ingredient => {
-    this.setState({
-      currentIngredient: ingredient
-    });
-  };
+  console.log(recipeData);
 
-  changeAmount = amount => {
-    this.setState({
-      currentAmount: amount
-    });
-  };
-
-  changeMeassurement = meassurement => {
-    this.setState({
-      currentMeassurement: meassurement
-    });
-  };
-
-  handleAdd = () => {
-    let newRecipeIngredients = this.state.recipeIngredients;
-    newRecipeIngredients.push([
-      this.state.currentIngredient,
-      this.state.currentAmount,
-      this.state.currentMeassurement
-    ]);
-
-    this.setState({
-      recipeIngredients: newRecipeIngredients
-    });
-  };
-
-  handleDelete = ingredientWithAmount => {
-    let newRecipeIngredients = this.state.recipeIngredients;
-    let index = newRecipeIngredients.indexOf(ingredientWithAmount);
-    if (index !== -1) {
-      newRecipeIngredients.splice(index, 1);
-      this.setState({
-        recipeIngredents: newRecipeIngredients
-      });
-    }
-  };
-
-  handleEdit = data => {
-    let ingredients = this.state.recipeIngredients;
-    if (typeof ingredients == "undefined") {
-      console.log("Ingredients cannot be empty");
-      return;
-    }
-
-    let creator = this.state.recipe.creator;
-    let id = this.state.recipe.id;
-    let recipeData = {
-      name: data.recipeName,
-      time: data.recipeTime,
-      servings: data.recipeServings,
-      ingredients: ingredients,
-      description: data.recipeDescription,
-      instructions: data.recipeInstructions,
-      creator: creator,
-      id: id
-    };
-
-    axios
-      .post("http://localhost:4000/editRecipe", recipeData)
-      .then(() => {
-        this.props.toastOpen({
-          text: "Edited!"
-        });
-      })
-      .catch(err => {
-        console.log(err);
-        this.props.toastOpen({
-          text: "Something went wrong"
-        });
-      });
-  };
-
-  render() {
-    let currentRecipe = this.state.recipe;
-
-    return (
-      <div className="editBody">
-        <div className="editTitle">
-          <DigitText.Heading3 text={"Edit"} />
-        </div>
-        <div className="editForm">
-          <DigitForm
-            onSubmit={(values, actions) => {
-              this.handleEdit(values);
-            }}
-            initialValues={{
-              recipeName: currentRecipe.name,
-              recipeTime: currentRecipe.time,
-              recipeServings: currentRecipe.servings,
-              recipeDescription: currentRecipe.description,
-              recipeInstructions: currentRecipe.instructions
-            }}
-            validationSchema={yup.object().shape({
-              recipeName: yup.string().required("This can't be empty"),
-              recipeTime: yup.string().required("This can't be empty"),
-              recipeServings: yup.string().required("This can't be empty"),
-              recipeDescription: yup.string().required("This can't be empty"),
-              recipeInstructions: yup.string().required("This can't be empty")
-            })}
-            render={({ errors }) => (
-              <DigitDesign.Card abswidth="460px">
-                <DigitDesign.CardBody>
-                  <DigitFormField
-                    name="recipeName"
-                    component={DigitTextField}
-                    componentProps={{
-                      upperLabel: "Name of the recipe"
-                    }}
-                  />
-                  <DigitFormField
-                    name="recipeTime"
-                    component={DigitTextField}
-                    componentProps={{
-                      upperLabel: "Cooking time",
-                      lowerLabel: "In minutes"
-                    }}
-                  />
-                  <DigitFormField
-                    name="recipeServings"
-                    component={DigitTextField}
-                    componentProps={{
-                      upperLabel: "Servings yielded"
-                    }}
-                  />
-                  <DigitFormField
-                    name="recipeDescription"
-                    component={DigitTextArea}
-                    componentProps={{
-                      upperLabel: "What is this recipe?"
-                    }}
-                  />
-                  <DigitFormField
-                    name="recipeInstructions"
-                    component={DigitTextArea}
-                    componentProps={{
-                      upperLabel: "How do you cook this?"
-                    }}
-                  />
-                  <IngredientCreator
-                    recipeIngredients={this.state.recipeIngredients}
-                    handleAdd={this.handleAdd}
-                    handleDelete={this.handleDelete}
-                    changeIngredient={this.changeIngredient}
-                    changeAmount={this.changeAmount}
-                    changeMeassurement={this.changeMeassurement}
-                    ingredientValue={this.state.currentIngredient}
-                    amountValue={this.state.currentAmount}
-                    meassurementValue={this.state.currentMeassurement}
-                  />
-                  <DigitDesign.CardButtons>
-                    <DigitButton primary raised submit text="Edit Recipe" />
-                  </DigitDesign.CardButtons>
-                </DigitDesign.CardBody>
-              </DigitDesign.Card>
-            )}
-          ></DigitForm>
-        </div>
+  return (
+    <div className="editBody">
+      <div className="editTitle">
+        <DigitText.Heading3 text={"Edit"} />
       </div>
-    );
-  }
-}
+      <div className="editForm">
+        <RecipeForm
+          onSubmit={(values, actions) => {
+            handleEdit(match.params.id, values, queueToast);
+          }}
+          submitText="Change recipe"
+          initialValues={recipeData}
+        />
+      </div>
+    </div>
+  );
+};
 
 export default Edit;

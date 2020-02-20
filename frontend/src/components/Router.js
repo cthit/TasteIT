@@ -3,9 +3,9 @@ import { BrowserRouter, Switch } from "react-router-dom";
 import { Route } from "react-router";
 
 import Home from "./Home.jsx";
-import Upload from "./elements/upload/Upload.container";
+import Upload from "./elements/upload/Upload";
 import Recipe from "./Recipe.jsx";
-import Edit from "./Edit.container";
+import Edit from "./Edit";
 import Callback from "./Callback.jsx";
 import NotFound from "./NotFound";
 

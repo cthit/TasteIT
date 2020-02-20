@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { DigitText, DigitTooltip } from "@cthit/react-digit-components";
+import { DigitChip } from "@cthit/react-digit-components";
 import "./styles/IngredientItems.css";
 
 class IngredientItems extends Component {
@@ -7,34 +7,30 @@ class IngredientItems extends Component {
     this.props.handleDelete(ingredient);
   };
 
-  formatText = ingredient => {
-    let ing = ingredient[0];
-    let amount = ingredient[1];
-    let meassurement = ingredient[2];
-
-    return amount + " " + meassurement + " " + ing;
+  formatText = i => {
+    const { amount, meassurement, ingredient } = i;
+    return amount + " " + meassurement + " " + ingredient;
   };
 
   render() {
+    if (this.props.ingredients == null) {
+      return null;
+    }
+    console.log(this.props);
     return (
       <ul className="ingredientList">
-        {this.props.ingredients.map(ingredient => {
-          let itemKey = Math.floor(Math.random() * 1000 + 1);
+        {this.props.ingredients.map((ingredient, i) => {
+          const text = this.formatText(ingredient);
+
           return (
-            <DigitTooltip text="Click to delete">
-              <li
-                onClick={() => {
-                  this.handleDelete(ingredient);
-                }}
-                // Generate a random number to use as key
-                key={itemKey}
-              >
-                <DigitText.Text
-                  text={this.formatText(ingredient)}
-                  white={true}
-                />
-              </li>
-            </DigitTooltip>
+            <DigitChip
+              key={text}
+              primary
+              label={text}
+              onDelete={() => {
+                this.handleDelete(i);
+              }}
+            />
           );
         })}
       </ul>
