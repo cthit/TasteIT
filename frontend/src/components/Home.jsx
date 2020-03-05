@@ -5,8 +5,11 @@ import ReactDOM from "react-dom";
 import RecipeGridView from "./elements/home/RecipeGridView.jsx";
 import Recipe from "./Recipe.jsx";
 import axios from "axios";
+import Cookies from "universal-cookie";
 import _ from "lodash";
 import "./elements/home/styles/Home.css";
+
+const cookies = new Cookies();
 
 class Home extends Component {
   constructor(props) {
@@ -31,11 +34,29 @@ class Home extends Component {
   }
 
   isUserCreator = creator => {
-    /*
-      Checks if the creator of recipe is the current user, currently
-      hardcoded
-    */
-    return true;
+    let userData = { token: cookies.get("auth_cookie") };
+    let response = {};
+    axios
+      .post("http://localhost:4000/verifyToken", userData)
+      .then(res => {
+        response = res.data;
+        console.log(response);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    if (response.body.cid == creator) {
+      return true;
+    }
+  };
+
+  isUserTrue = () => {
+    let user = cookies.get("auth_cookie");
+    if (typeof user === "undefined") {
+      return false;
+    } else {
+      return true;
+    }
   };
 
   handleDeleteRecipe = recipe => {

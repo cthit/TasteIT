@@ -25,6 +25,11 @@ class App extends Component {
             renderDrawer={closeDrawer => (
               <div className="headerNavLinks">
                 <DigitNavLink
+                  text="Log In"
+                  link="/login"
+                  onClick={closeDrawer}
+                />
+                <DigitNavLink
                   text="View Recipe"
                   link="/"
                   onClick={closeDrawer}
