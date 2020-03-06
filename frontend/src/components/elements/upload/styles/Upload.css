@@ -1,4 +1,4 @@
-.editBody {
+.uploadBody {
   margin-top: 90px;
   margin-left: auto;
   margin-right: auto;
@@ -6,16 +6,27 @@
   width: 500px;
 }
 
-.editTitle {
+.uploadTitle {
   text-align: center;
   margin-bottom: 20px;
 }
 
-.editForm {
+.uploadForm {
   margin-top: 20px;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 20px;
-  width: 500px;
+  width: 460px;
   align-items: center;
+}
+
+.recipeFormElement {
+  margin-bottom: 30px;
+}
+
+.uploadButtonDiv {
+  width: 166.85px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 30px;
 }

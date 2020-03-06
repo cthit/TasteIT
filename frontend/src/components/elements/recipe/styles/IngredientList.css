@@ -1,0 +1,14 @@
+.ingredientListArea {
+  list-style: none;
+  padding-left: 0;
+  width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
+}
+
+.ingredientListItem {
+  width: 500px;
+  padding: 15px;
+  text-align: left;
+}

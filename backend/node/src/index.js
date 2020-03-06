@@ -36,7 +36,7 @@ app.get("/", (req, res) => {
 app.get("/getAllNames", (req, res) => {
   allNamesRoute(res);
 });
-app.get("/getRecipe/:name", (req, res) => {
+app.get("/getRecipe/:id", (req, res) => {
   getRecipeRoute(req, res);
 });
 app.get("/getAllRecipes", (req, res) => {
@@ -114,11 +114,11 @@ function getAllRecipesRoute(req, res) {
 /// RECIPE HANDLING
 /// name - time - servings - ingredients ([ingredient, amount, meassurement]) - description - instructions - creator
 
-// RETURNS ONE SPECIFIC RECIPIE ACCORDING TO NAME
+// RETURNS ONE SPECIFIC RECIPE ACCORDING TO ID
 async function getRecipe(req) {
   let response;
-  let name = req.params.name;
-  response = await fsp.readFile(`./data/${name}.json`, "utf8");
+  let id = req.params.id;
+  response = await fsp.readFile(`./data/${id}.json`, "utf8");
   // response = JSON.parse(response);
   return response;
 }
