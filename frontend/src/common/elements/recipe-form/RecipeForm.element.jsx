@@ -19,8 +19,6 @@ const RecipeForm = ({
   onSubmit,
   submitText
 }) => {
-  console.log("NOT NULL");
-  console.log(initialValues);
   return (
     <DigitEditDataCard
       initialValues={initialValues}

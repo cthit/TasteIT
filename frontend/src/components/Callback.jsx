@@ -9,7 +9,7 @@ class Callback extends Component {
     let params = new URLSearchParams(props.location.search);
     cookies.set("auth_cookie", params.get("token"), { path: "/" });
     console.log(cookies.get("auth_cookie"));
-    this.props.history.push("/");
+    window.location.replace("http://localhost:3000/");
   }
 
   render() {

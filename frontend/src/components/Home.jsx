@@ -16,7 +16,8 @@ class Home extends Component {
     super(props);
 
     this.state = {
-      recipes: []
+      recipes: [],
+      currentUser: ""
     };
   }
 
@@ -31,8 +32,35 @@ class Home extends Component {
       .catch(err => {
         console.log(err);
       });
+    if (this.isUserTrue()) {
+      let userData = { token: cookies.get("auth_cookie") };
+      axios
+        .post("http://localhost:4000/verifyToken", userData)
+        .then(res => {
+          let response = res.data;
+          this.setState({
+            currentUser: response.body.cid
+          });
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+    console.log(this.state);
   }
 
+  isUserCreator = creator => {
+    let user = this.state.currentUser;
+    if (creator == user) {
+      console.log(true);
+      return true;
+    } else {
+      console.log(false);
+      return false;
+    }
+  };
+
+  /*
   isUserCreator = creator => {
     let userData = { token: cookies.get("auth_cookie") };
     let response = {};
@@ -49,10 +77,11 @@ class Home extends Component {
       return true;
     }
   };
+  */
 
   isUserTrue = () => {
     let user = cookies.get("auth_cookie");
-    if (typeof user === "undefined") {
+    if (typeof user === "undefined" || user == "") {
       return false;
     } else {
       return true;
