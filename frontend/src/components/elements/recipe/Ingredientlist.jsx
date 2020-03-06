@@ -9,7 +9,7 @@ import "./styles/IngredientList.css";
 class Ingredientlist extends Component {
   createIngredients = item => {
     // Replace with JSON
-    let text = item[1] + " " + item[2] + " " + item[0];
+    let text = item.ingredient + " " + item.meassurement + " " + item.amount;
     return (
       <div className="ingredientListItem">
         <DigitCheckbox label={text} primary />
