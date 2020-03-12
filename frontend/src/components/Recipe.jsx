@@ -85,7 +85,7 @@ class Recipe extends Component {
   };
 
   handleGoBack = () => {
-    window.open("/", "_self");
+    this.props.history.push("/");
   };
 
   openEdit = () => {
