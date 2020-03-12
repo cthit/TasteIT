@@ -1,12 +1,7 @@
 import React, { Component } from "react";
-import { DigitLayout } from "@cthit/react-digit-components";
-import NewWindow from "react-new-window";
-import ReactDOM from "react-dom";
 import RecipeGridView from "./elements/home/RecipeGridView.jsx";
-import Recipe from "./Recipe.jsx";
 import axios from "axios";
 import Cookies from "universal-cookie";
-import _ from "lodash";
 import "./elements/home/styles/Home.css";
 
 const cookies = new Cookies();
@@ -46,16 +41,13 @@ class Home extends Component {
           console.log(err);
         });
     }
-    console.log(this.state);
   }
 
   isUserCreator = creator => {
     let user = this.state.currentUser;
     if (creator == user) {
-      console.log(true);
       return true;
     } else {
-      console.log(false);
       return false;
     }
   };

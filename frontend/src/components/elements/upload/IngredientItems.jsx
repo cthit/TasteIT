@@ -16,7 +16,6 @@ class IngredientItems extends Component {
     if (this.props.ingredients == null) {
       return null;
     }
-    console.log(this.props);
     return (
       <ul className="ingredientList">
         {this.props.ingredients.map((ingredient, i) => {

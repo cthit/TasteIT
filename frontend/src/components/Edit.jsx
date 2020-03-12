@@ -1,16 +1,6 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import * as yup from "yup";
-import {
-  DigitText,
-  DigitTextField,
-  DigitTextArea,
-  DigitForm,
-  DigitDesign,
-  DigitButton,
-  useDigitToast
-} from "@cthit/react-digit-components";
-import IngredientCreator from "./elements/upload/IngredientCreator";
+import { DigitText, useDigitToast } from "@cthit/react-digit-components";
 import "./styles/Edit.css";
 import RecipeForm from "../common/elements/recipe-form";
 
@@ -58,8 +48,6 @@ const Edit = ({ match }) => {
   if (recipeData == null) {
     return null;
   }
-
-  console.log(recipeData);
 
   return (
     <div className="editBody">

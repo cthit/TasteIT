@@ -1,9 +1,5 @@
 import React, { Component } from "react";
-import {
-  DigitText,
-  DigitCheckbox,
-  DigitLayout
-} from "@cthit/react-digit-components";
+import { DigitCheckbox } from "@cthit/react-digit-components";
 import "./styles/IngredientList.css";
 
 class Ingredientlist extends Component {

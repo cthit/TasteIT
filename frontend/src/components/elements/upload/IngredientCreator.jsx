@@ -1,8 +1,7 @@
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 import "./styles/IngredientCreator.css";
 import IngredientItems from "./IngredientItems.jsx";
 import { TextField } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
 import {
   DigitButton,
   DigitSelect,
@@ -10,7 +9,6 @@ import {
 } from "@cthit/react-digit-components";
 
 const IngredientCreator = ({ value, push, remove }) => {
-  console.log(value);
   const [amount, setAmount] = useState(0);
   const [ingredient, setIngredient] = useState("");
   const [meassurement, setMeassurement] = useState("g");

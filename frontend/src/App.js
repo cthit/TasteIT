@@ -1,21 +1,15 @@
 import React, { Component } from "react";
-import { BrowserRouter, Link, Switch } from "react-router-dom";
-import { Route } from "react-router";
 import {
-  DigitDialog,
   DigitProviders,
   DigitHeader,
   DigitNavLink,
-  DigitToast,
-  DigitText
+  DigitToast
 } from "@cthit/react-digit-components";
 import Cookies from "universal-cookie";
 import Router from "./components/Router";
-import NotFound from "./components/NotFound";
 import "./App.css";
 
 const cookies = new Cookies();
-var linkText = "";
 
 class App extends Component {
   isUserTrue = () => {

@@ -1,18 +1,6 @@
-import React, { Component } from "react";
-import ReactDOM from "react-dom";
-import PropTypes from "prop-types";
+import React from "react";
 import axios from "axios";
-import * as yup from "yup";
-import {
-  DigitText,
-  DigitTextField,
-  DigitTextArea,
-  DigitForm,
-  DigitDesign,
-  DigitButton,
-  useDigitToast
-} from "@cthit/react-digit-components";
-import IngredientCreator from "./IngredientCreator";
+import { DigitText, useDigitToast } from "@cthit/react-digit-components";
 import "./styles/Upload.css";
 import RecipeForm from "../../../common/elements/recipe-form";
 

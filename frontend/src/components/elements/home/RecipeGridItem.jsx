@@ -70,7 +70,7 @@ class RecipeGridItem extends Component {
   render() {
     return (
       <div className="RecipeGridItem">
-        <DigitDesign.Card absWidth="320px" absHeight="220px">
+        <DigitDesign.Card width="320px" height="220px">
           <div className="recipeGridContent">
             <div className="recipeTitle">
               <DigitText.Title
