@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Edit from "@material-ui/icons/Edit";
 import axios from "axios";
+import Cookies from "universal-cookie";
 import {
   DigitText,
   DigitMarkdown,
@@ -10,7 +11,11 @@ import {
 } from "@cthit/react-digit-components";
 import Ingredientlist from "./elements/recipe/Ingredientlist.jsx";
 import Instructions from "./elements/recipe/Instructions.jsx";
+import EditFAB from "./elements/recipe/EditFAB.jsx";
 import "./elements/recipe/styles/Recipe.css";
+
+const cookies = new Cookies();
+
 class Recipe extends Component {
   constructor(props) {
     super(props);
@@ -23,7 +28,8 @@ class Recipe extends Component {
         description: "",
         instructions: "",
         creator: "",
-        id: ""
+        id: "",
+        currentUser: ""
       }
     };
   }
@@ -39,7 +45,40 @@ class Recipe extends Component {
       .catch(err => {
         console.log(err);
       });
+    if (this.isUserTrue()) {
+      let userData = { token: cookies.get("auth_cookie") };
+      axios
+        .post("http://localhost:4000/verifyToken", userData)
+        .then(res => {
+          let response = res.data;
+          this.setState({
+            currentUser: response.body.cid
+          });
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
   }
+
+  isUserTrue = () => {
+    let user = cookies.get("auth_cookie");
+    if (typeof user === "undefined" || user == "") {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  isUserCreator = () => {
+    let currentRecipe = this.state.recipe;
+    let user = this.state.currentUser;
+    if (currentRecipe.creator == user) {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
   formatTime = time => {
     return "Time: " + time + " min";
@@ -85,7 +124,11 @@ class Recipe extends Component {
             <Instructions instructions={currentRecipe.instructions} />
           </div>
           <div className="recipeFabArea">
-            <DigitFAB icon={Edit} primary onClick={this.openEdit} />
+            <EditFAB
+              icon={Edit}
+              onClick={this.openEdit}
+              isCreator={this.isUserCreator()}
+            />
           </div>
         </DigitDesign.Card>
       </div>
