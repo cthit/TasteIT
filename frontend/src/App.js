@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import {
   DigitProviders,
   DigitHeader,
+  DigitHeaderDrawer,
   DigitNavLink,
   DigitToast
 } from "@cthit/react-digit-components";
@@ -45,6 +46,17 @@ class App extends Component {
                   link="/upload"
                   onClick={closeDrawer}
                 />
+              </div>
+            )}
+            renderMain={() => <Router />}
+          />
+          <DigitHeaderDrawer
+            title="TasteIT"
+            renderDrawer={() => (
+              <div className="headerNavLinks">
+                <DigitNavLink text={this.isUserTrue()} link="/login" />
+                <DigitNavLink text="View Recipes" link="/" />
+                <DigitNavLink text="Upload recipe" link="/upload" />
               </div>
             )}
             renderMain={() => <Router />}
