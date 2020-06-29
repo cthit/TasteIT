@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import {
   DigitProviders,
+  DigitButton,
   DigitHeader,
   DigitHeaderDrawer,
+  DigitLayout,
   DigitNavLink,
   DigitToast
 } from "@cthit/react-digit-components";
@@ -27,37 +29,25 @@ class App extends Component {
       <DigitProviders>
         <React.Fragment>
           <DigitToast />
-          <DigitHeader
-            title="TasteIT"
-            renderDrawer={closeDrawer => (
-              <div className="headerNavLinks">
-                <DigitNavLink
-                  text={this.isUserTrue()}
-                  link="/login"
-                  onClick={closeDrawer}
-                />
-                <DigitNavLink
-                  text="View Recipe"
-                  link="/"
-                  onClick={closeDrawer}
-                />
-                <DigitNavLink
-                  text="Upload recipe"
-                  link="/upload"
-                  onClick={closeDrawer}
-                />
-              </div>
-            )}
-            renderMain={() => <Router />}
-          />
           <DigitHeaderDrawer
             title="TasteIT"
+            headerRowProps={{ flex: "1", justifyContent: "space-between" }}
+            renderHeader={() => (
+              <DigitLayout.Row>
+                <DigitButton
+                  text={this.isUserTrue()}
+                  outlined
+                  onClick={() =>
+                    window.location.replace("http://localhost:3000/login")
+                  }
+                />
+              </DigitLayout.Row>
+            )}
             renderDrawer={() => (
-              <div className="headerNavLinks">
-                <DigitNavLink text={this.isUserTrue()} link="/login" />
+              <React.Fragment>
                 <DigitNavLink text="View Recipes" link="/" />
-                <DigitNavLink text="Upload recipe" link="/upload" />
-              </div>
+                <DigitNavLink text="Upload Recipe" link="/upload" />
+              </React.Fragment>
             )}
             renderMain={() => <Router />}
           />
