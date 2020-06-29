@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Cookies from "universal-cookie";
 import { DigitText, useDigitToast } from "@cthit/react-digit-components";
 import "./styles/Upload.css";
 import RecipeForm from "../../../common/elements/recipe-form";
+import * as Domain from "../../../common/elements/Domain.jsx";
+
+const cookies = new Cookies();
+
+const domain = Domain.getDomain();
 
 const handleUpload = (data, queueToast) => {
   let creator = "schan";
@@ -10,9 +16,10 @@ const handleUpload = (data, queueToast) => {
     ...data,
     creator: creator
   };
+  let domain = domain();
 
   axios
-    .post("http://localhost:4000/insertRecipe", recipeData)
+    .post(domain + ":4000/insertRecipe", recipeData)
     .then(() => {
       queueToast({
         text: "Uploaded!"
@@ -26,8 +33,13 @@ const handleUpload = (data, queueToast) => {
     });
 };
 
-const UploadYup = ({}) => {
+const Upload = ({}) => {
   const [queueToast] = useDigitToast();
+
+  let user = cookies.get("auth_cookie");
+  if (typeof user === "undefined" || user == "") {
+    window.location.replace("/login");
+  }
 
   return (
     <div className="uploadBody">
@@ -46,4 +58,4 @@ const UploadYup = ({}) => {
   );
 };
 
-export default UploadYup;
+export default Upload;

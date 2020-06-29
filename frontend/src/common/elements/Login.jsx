@@ -7,10 +7,11 @@ const cookies = new Cookie();
 class Login extends Component {
   constructor(props) {
     super(props);
+    let domain = this.getDomain();
     let user = cookies.get("auth_cookie");
     if (typeof user == "undefined" || user == "") {
       axios
-        .get("http://localhost:4000/getClientId")
+        .get(domain + ":4000/getClientId")
         .then(res => {
           window.location.replace(
             "https://ldap-auth.chalmers.it/authenticate?client_id=" + res.data
@@ -20,12 +21,18 @@ class Login extends Component {
           console.log(err);
         });
     } else {
-      console.log("triggered");
-      //cookies.remove("auth-cookie", { path: "/" });
       cookies.set("auth_cookie", "", { path: "/" });
-      window.location.replace("http://localhost:3000/");
+      window.location.replace(domain + ":3000/");
     }
   }
+
+  getDomain = () => {
+    if (process.env.NODE_ENV == "development") {
+      return "http://localhost";
+    } else {
+      return "https://tasteit";
+    }
+  };
 
   render() {
     return (

@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import RecipeGridView from "./elements/home/RecipeGridView.jsx";
 import axios from "axios";
 import Cookies from "universal-cookie";
+import * as Domain from "../common/elements/Domain.jsx";
+import * as User from "../common/elements/User.jsx";
 import "./elements/home/styles/Home.css";
 
 const cookies = new Cookies();
@@ -14,11 +16,14 @@ class Home extends Component {
       recipes: [],
       currentUser: ""
     };
+    console.log(User.getCurrentUser());
   }
 
   componentDidMount() {
+    let domain = Domain.getDomain();
+
     axios
-      .get("http://localhost:4000/getAllRecipes")
+      .get(domain + ":4000/getAllRecipes")
       .then(res => {
         this.setState({
           recipes: res.data
@@ -30,7 +35,7 @@ class Home extends Component {
     if (this.isUserTrue()) {
       let userData = { token: cookies.get("auth_cookie") };
       axios
-        .post("http://localhost:4000/verifyToken", userData)
+        .post(domain + ":4000/verifyToken", userData)
         .then(res => {
           let response = res.data;
           this.setState({
@@ -81,8 +86,9 @@ class Home extends Component {
   };
 
   handleDeleteRecipe = recipe => {
+    let domain = this.getDomain();
     axios
-      .post("http://localhost:4000/deleteRecipe", recipe)
+      .post(domain + ":4000/deleteRecipe", recipe)
       .then(res => console.log(res))
       .catch(err => console.log(err));
 
@@ -111,6 +117,7 @@ class Home extends Component {
   };
 
   render() {
+    console.log(User.getCurrentUser());
     return (
       <RecipeGridView
         recipes={this.state.recipes}

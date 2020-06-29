@@ -12,6 +12,7 @@ import {
 import Ingredientlist from "./elements/recipe/Ingredientlist.jsx";
 import Instructions from "./elements/recipe/Instructions.jsx";
 import EditFAB from "./elements/recipe/EditFAB.jsx";
+import * as Domain from "../common/elements/Domain.jsx";
 import "./elements/recipe/styles/Recipe.css";
 
 const cookies = new Cookies();
@@ -35,8 +36,9 @@ class Recipe extends Component {
   }
 
   componentDidMount() {
+    let domain = Domain.getDomain();
     axios
-      .get("http://localhost:4000/getRecipe/" + this.props.match.params.id)
+      .get(domain + ":4000/getRecipe/" + this.props.match.params.id)
       .then(res => {
         this.setState({
           recipe: res.data
@@ -48,7 +50,7 @@ class Recipe extends Component {
     if (this.isUserTrue()) {
       let userData = { token: cookies.get("auth_cookie") };
       axios
-        .post("http://localhost:4000/verifyToken", userData)
+        .post(domain + ":4000/verifyToken", userData)
         .then(res => {
           let response = res.data;
           this.setState({

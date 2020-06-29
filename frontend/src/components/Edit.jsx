@@ -1,11 +1,32 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Cookies from "universal-cookie";
 import { DigitText, useDigitToast } from "@cthit/react-digit-components";
 import "./styles/Edit.css";
 import RecipeForm from "../common/elements/recipe-form";
+import * as Domain from "../common/elements/Domain.jsx";
+
+const cookies = new Cookies();
+
+const domain = Domain.getDomain();
+
+const currentUser = () => {
+  let domain = domain();
+  let userData = { token: cookies.get("auth_cookie") };
+  axios
+    .post(domain + ":4000/verifyToken", userData)
+    .then(res => {
+      let response = res.data;
+      return response.creator;
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
 
 const handleEdit = (id, data, queueToast) => {
-  let creator = "schan";
+  let domain = domain();
+  let creator = currentUser();
   let recipeData = {
     ...data,
     creator: creator,
@@ -13,7 +34,7 @@ const handleEdit = (id, data, queueToast) => {
   };
 
   axios
-    .post("http://localhost:4000/editRecipe", recipeData)
+    .post(domain + ":4000/editRecipe", recipeData)
     .then(() => {
       queueToast({
         text: "Edited!"
@@ -32,8 +53,9 @@ const Edit = ({ match }) => {
   const [recipeData, setRecipeData] = useState(null);
 
   useEffect(() => {
+    let domain = domain();
     axios
-      .get("http://localhost:4000/getRecipe/" + match.params.id)
+      .get(domain + ":4000/getRecipe/" + match.params.id)
       .then(response => {
         setRecipeData(response.data);
       })
