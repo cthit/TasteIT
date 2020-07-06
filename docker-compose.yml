@@ -1,0 +1,29 @@
+version: "3"
+services:
+  frontend:
+    container_name: tasteit_client
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    volumes:
+      - ./frontend:/frontend
+      - /frontend/node_modules
+      - ./src:/frontend/src
+  backend:
+    container_name: tasteit_server
+    build:
+      context: ./backend/node
+      dockerfile: Dockerfile
+    image: node:11
+    ports:
+      - 4000:4000
+    volumes:
+      - ./node:/node
+      - /node/node_modules
+      - ./data:/node/data
+    environment:
+      - CLIENT_ID=thisisaclientid
+      - SECRET=hellotherethisisasecret
+    command: bash -c "yarn && yarn dev"

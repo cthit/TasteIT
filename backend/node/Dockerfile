@@ -1,4 +1,5 @@
 FROM kkarczmarczyk/node-yarn
-COPY / / 
+WORKDIR /app
+COPY / /
 CMD yarn dev
 EXPOSE 4000
